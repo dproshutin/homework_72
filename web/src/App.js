@@ -4,6 +4,7 @@ import {BrowserRouter, Route, Switch} from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Dishes from "./containers/Dishes/Dishes";
 import Orders from "./containers/Orders/Orders";
+import AddDish from "./containers/AddDish/AddDish";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Dishes}/>
             <Route path="/dishes" exact component={Dishes}/>
+            <Route path={"/dishes/add"} exact component={AddDish}/>
             <Route path="/orders" exact component={Orders}/>
             <Route render={() => {
               return (
