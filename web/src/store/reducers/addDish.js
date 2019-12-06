@@ -12,7 +12,8 @@ const initialState = {
         price: "",
         photo: ""
     },
-    loading: false
+    loading: false,
+    error: null
 };
 
 const addDish = (state = initialState, action) => {

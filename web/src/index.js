@@ -14,8 +14,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
     addDish: addDishReducer,
-    dishes: dishesReducer,
-
+    dishes: dishesReducer
 });
 
 const store = createStore(

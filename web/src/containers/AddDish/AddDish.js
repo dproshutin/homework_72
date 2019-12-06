@@ -37,8 +37,8 @@ class AddDish extends Component {
                 />
                 <Button
                     btnType="delete"
-                        click={this.props.cancelOrder}
-                        value="Cancel"
+                    click={this.props.cancelOrder}
+                    value="Cancel"
                 />
                 <Button
                     btnType="read"
