@@ -3,12 +3,25 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import reducer from './store/reducer';
 import {Provider} from 'react-redux'
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux';
 import thunkMiddleware from "redux-thunk";
+import addDishReducer from "./store/reducers/addDish.js";
+import dishesReducer from "./store/reducers/dishes.js";
 
-const store = createStore(reducer, applyMiddleware(thunkMiddleware));
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const rootReducer = combineReducers({
+    addDish: addDishReducer,
+    dishes: dishesReducer,
+
+});
+
+const store = createStore(
+    rootReducer,
+    composeEnhancers(applyMiddleware(thunkMiddleware))
+);
 
 const app = (
     <Provider store={store}>

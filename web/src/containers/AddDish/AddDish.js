@@ -1,39 +1,14 @@
 import React, {Component} from 'react';
 import './AddDish.css';
-import axios from '../../axios-homework-72';
 import InputField from "../../components/UI/InputField/InputField";
 import Button from "../../components/UI/Button/Button";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import {connect} from "react-redux";
+import {addNewDish, valueChanged} from "../../store/actions/actions";
 
 class AddDish extends Component {
-    state = {
-    };
-    valueChanged = (event) => {
-        const name = event.target.name;
-        this.setState({[name]: event.target.value});
-    };
-    dishAddHandler = (event) => {
-        this.setState({loading: true});
-        const dish = {
-            title: this.state.title,
-            price: this.state.price,
-            photo: this.state.photo
-        };
-
-        axios.post('/dishes.json', dish)
-            .then(response => {
-                if (response.statusText === "OK") {
-                    this.setState({loading: false});
-                    this.props.history.push('/');
-                }
-            })
-    };
-    dishCancelHandler = () => {
-        this.props.history.push('/');
-    };
-
     render() {
-        if (this.state.loading) {
+        if (this.props.loading) {
             return <Spinner/>;
         }
         return (
@@ -43,31 +18,31 @@ class AddDish extends Component {
                     name="title"
                     type="text"
                     placeholder="Please add name of the dish"
-                    title={this.state.title}
-                    change={this.valueChanged}
+                    title={this.props.newDish.title}
+                    change={this.props.valueChanged}
                 />
                 <InputField
                     name="price"
                     type="text"
                     placeholder="Please add price of the dish"
-                    title={this.state.price}
-                    change={this.valueChanged}
+                    title={this.props.newDish.price}
+                    change={this.props.valueChanged}
                 />
                 <InputField
                     name="photo"
                     type="text"
                     placeholder="Please add path to the photo"
-                    title={this.state.photo}
-                    change={this.valueChanged}
+                    title={this.props.newDish.photo}
+                    change={this.props.valueChanged}
                 />
                 <Button
                     btnType="delete"
-                    click={this.dishCancelHandler}
-                    value="Cancel"
+                        click={this.props.cancelOrder}
+                        value="Cancel"
                 />
                 <Button
                     btnType="read"
-                    click={this.dishAddHandler}
+                    click={this.props.addNewDish}
                     value="Save"
                 />
             </div>
@@ -75,4 +50,19 @@ class AddDish extends Component {
     }
 }
 
-export default AddDish;
+const mapStateToProps = state => {
+    return {
+        newDish: state.addDish.newDish,
+        loading: state.addDish.loading
+    };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        valueChanged: (e) => dispatch(valueChanged(e)),
+        addNewDish: () => dispatch(addNewDish({history: ownProps.history})),
+        cancelOrder: () => ownProps.history.push('/')
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps) (AddDish);
