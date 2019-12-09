@@ -3,16 +3,17 @@ import Button from "../UI/Button/Button";
 import './Dish.css';
 
 const Dish = props => {
+    const altText = `Image of ${props.title} to be here...`;
     return (
         <div className="Dish">
             <div className="DishImageWrapper">
-                <img src={props.photo} alt={props.title}/>
+                <img src={props.photo} alt={altText}/>
             </div>
             <span>{props.title}</span>
             <span>{props.price}</span>
             <Button
                 btnType="edit"
-                // click={this.props.editDish}
+                click={() => props.editDish(props.id)}
                 value="Edit"
             />
             <Button

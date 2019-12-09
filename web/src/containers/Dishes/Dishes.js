@@ -3,13 +3,19 @@ import './Dishes.css';
 import Button from "../../components/UI/Button/Button";
 import {connect} from "react-redux";
 import Dish from "../../components/Dish/Dish";
-import {loadDishes, removeDish} from "../../store/actions/actions";
+import {editDishHandler, loadDishes, removeDish} from "../../store/actions/actions";
 import Spinner from "../../components/UI/Spinner/Spinner";
+import addDish from "../../store/reducers/addDish";
 
 class Dishes extends Component {
     componentDidMount() {
         this.props.loadDishes();
     }
+    // onDishEditing = () => {
+    //     this.props.editDishHandler().then(() => {
+    //         this.props.history.push("/dishes/" + this.props.match.params.id + "/edit");
+    //     });
+    // };
 
     render() {
         if (this.props.loading) {
@@ -24,7 +30,7 @@ class Dishes extends Component {
                         title={dish.title}
                         price={dish.price}
                         photo={dish.photo}
-                        // editDish={this.props.editDish}
+                        editDish={this.props.editDishHandler}
                         removeDish={this.props.removeDish}
                     />
                 );
@@ -51,7 +57,8 @@ class Dishes extends Component {
 const mapStateToProps = state => {
     return {
         allDishes: state.dishes.dishes,
-        loading: state.dishes.loading
+        loading: state.dishes.loading,
+        dishToEdit: state.addDish.dishToEdit
     };
 };
 
@@ -59,7 +66,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         loadDishes: () => dispatch(loadDishes()),
         removeDish: (id) => dispatch(removeDish(id)),
-        addDishHandler: () => ownProps.history.push('/dishes/add')
+        addDishHandler: () => ownProps.history.push('/dishes/add'),
+        editDishHandler: (id) => dispatch(editDishHandler(id, {history: ownProps.history}))
     };
 };
 

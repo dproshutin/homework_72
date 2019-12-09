@@ -7,6 +7,11 @@ import {connect} from "react-redux";
 import {addNewDish, valueChanged} from "../../store/actions/actions";
 
 class AddDish extends Component {
+    onDishAdded = () => {
+        this.props.addNewDish().then(() => {
+           this.props.history.push("/");
+        });
+    };
     render() {
         if (this.props.loading) {
             return <Spinner/>;
@@ -60,7 +65,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         valueChanged: (e) => dispatch(valueChanged(e)),
-        addNewDish: () => dispatch(addNewDish({history: ownProps.history})),
+        addNewDish: () => dispatch(addNewDish()),
         cancelOrder: () => ownProps.history.push('/')
     };
 };

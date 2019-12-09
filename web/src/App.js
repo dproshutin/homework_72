@@ -14,6 +14,7 @@ function App() {
             <Route path="/" exact component={Dishes}/>
             <Route path="/dishes" exact component={Dishes}/>
             <Route path={"/dishes/add"} exact component={AddDish}/>
+            <Route path={"/dishes/:id/edit"} exact component={AddDish}/>
             <Route path="/orders" exact component={Orders}/>
             <Route render={() => {
               return (

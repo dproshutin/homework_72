@@ -6,3 +6,4 @@ export const DISHES_REQUEST = 'DISHES_REQUEST';
 export const DISHES_SUCCESS = 'DISHES_SUCCESS';
 export const DISHES_FAILURE = 'DISHES_FAILURE';
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+export const DISH_EDIT = 'DISH_EDIT';
